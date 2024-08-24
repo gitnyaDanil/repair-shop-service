@@ -22,7 +22,7 @@
 
         <x-row>
             <x-in-text col="4" :label="'Nama'" :id="'name'" :name="'name'" :required="true" />
-            <x-in-text col="4" :label="'Harga'" :id="'price'" :name="'price'" :required="true" />
+            <x-in-text col="4" :label="'Biaya'" :id="'cost'" :name="'cost'" :required="true" />
             <x-in-text col="4" :label="'Deskripsi'" :id="'description'" :name="'description'" :required="true" />
         </x-row>
 

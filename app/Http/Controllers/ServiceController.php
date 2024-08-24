@@ -17,17 +17,17 @@ class ServiceController extends Controller
         $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
-            'price' => 'required|numeric',
+            'cost' => 'required|numeric',
         ]);
 
         // use raw SQL query to insert data
-        $query = "INSERT INTO services (name, description, cost) VALUES (?, ?, ?)";
+        $query = "INSERT INTO services (name, description, cost, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())";
 
         // execute the query
         $insert = DB::insert($query, [
             $request->name,
             $request->description,
-            $request->price,
+            $request->cost,
         ]);
 
         // check if the query is successful
