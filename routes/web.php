@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AuthController,
-    ServiceController
+    ServiceController,
+    CustomerController,
 };
 
 Route::get('/', function () {
@@ -27,5 +28,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('/service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
     Route::get('service/{id}', [ServiceController::class, 'show'])->name('service.show');
     Route::patch('service/{id}', [ServiceController::class, 'update'])->name('service.update');
+
+    Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
+    Route::post('/customer', [CustomerController::class, 'store'])->name('customer.store');
 });
 
