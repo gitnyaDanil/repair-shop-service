@@ -9,7 +9,10 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        return view('modules.service.index');
+        $query = "SELECT * FROM services";
+        $services = DB::select($query);
+
+        return view('modules.service.index', compact('services'));
     }
 
     public function store(Request $request)
@@ -36,5 +39,59 @@ class ServiceController extends Controller
         }
 
         return redirect()->route('service.index');
+    }
+
+    public function destroy($id)
+    {
+        $query = "DELETE FROM services WHERE id = ?";
+        $delete = DB::delete($query, [$id]);
+
+        if (!$delete) {
+            return redirect()->back()->with('error', 'Failed to delete data');
+        }
+
+        return redirect()->route('service.index');
+    }
+
+    public function show($id)
+    {
+        $query = "SELECT * FROM services WHERE id = ?";
+        $service = DB::selectOne($query, [$id]);
+
+        if (!$service) {
+            return redirect()->back()->with('error', 'Data not found');
+        }
+
+        return view('modules.service.show', compact('service'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'cost' => 'required|numeric',
+        ]);
+
+        $query = "
+            UPDATE services
+                SET name = ?,
+                description = ?,
+                cost = ?,
+                updated_at = NOW()
+            WHERE id = ?";
+
+        $update = DB::update($query, [
+            $request->name,
+            $request->description,
+            $request->cost,
+            $id,
+        ]);
+
+        if (!$update) {
+            return redirect()->back()->with('error', 'Failed to update data');
+        }
+
+        return redirect()->route('service.index')->with('message', 'Service berhasil diupdate');
     }
 }

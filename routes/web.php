@@ -24,5 +24,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
     Route::post('/service', [ServiceController::class, 'store'])->name('service.store');
+    Route::delete('/service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+    Route::get('service/{id}', [ServiceController::class, 'show'])->name('service.show');
+    Route::patch('service/{id}', [ServiceController::class, 'update'])->name('service.update');
 });
 
