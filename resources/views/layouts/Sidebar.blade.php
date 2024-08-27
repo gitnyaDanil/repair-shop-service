@@ -38,10 +38,10 @@
           <li class="nav-header">Master Data</li>
             <x-nav-item :icon="'fas fa-users'" :text="'Customer'" :href="route('customer.index')"/>
 
-            <x-nav-item :icon="'fas fa-tools'" :text="'Service'" />
+            <x-nav-item :icon="'fas fa-tools'" :text="'Service'" :href="route('service.index')"/>
 
             {{-- <i class="fa-solid fa-screwdriver-wrench"></i> --}}
-          
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
