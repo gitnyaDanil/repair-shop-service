@@ -6,6 +6,7 @@ use App\Http\Controllers\{
     ServiceController,
     CustomerController,
     CustomerInteractionController,
+    RepairOrderController,
 };
 
 Route::get('/', function () {
@@ -62,5 +63,28 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::delete('/{id}', [CustomerInteractionController::class, 'destroy'])
              ->name('customer_interaction.destroy');
+    });
+
+    Route::prefix('repair-orders')->group(function () {
+          Route::get('/', [RepairOrderController::class, 'index'])
+               ->name('repair_order.index');
+
+          Route::get('/create', [RepairOrderController::class, 'create'])
+               ->name('repair_order.create');
+  
+          Route::post('/', [RepairOrderController::class, 'store'])
+               ->name('repair_order.store');
+  
+          Route::get('/{id}', [RepairOrderController::class, 'show'])
+               ->name('repair_order.show');
+  
+          Route::get('/{id}/edit', [RepairOrderController::class, 'edit'])
+               ->name('repair_order.edit');
+  
+          Route::patch('/{id}', [RepairOrderController::class, 'update'])
+               ->name('repair_order.update');
+  
+          Route::delete('/{id}', [RepairOrderController::class, 'destroy'])
+               ->name('repair_order.destroy');
     });
 });

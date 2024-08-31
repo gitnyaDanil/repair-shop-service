@@ -42,6 +42,8 @@
 
             <x-nav-item :icon="'fas fa-users'" :text="'Customer Interaction'" :href="route('customer_interaction.index')"/>
 
+            <x-nav-item :icon="'fas fa-users'" :text="'Repair Order'" :href="route('repair_order.index')"/>
+
             {{-- <i class="fa-solid fa-screwdriver-wrench"></i> --}}
 
         </ul>
