@@ -17,10 +17,10 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Daftar Kelas</a>
+            <a href="#" class="nav-link">Daftar Service</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Kelasku</a>
+            <a href="#" class="nav-link">Service</a>
           </li>
         </ul>
 

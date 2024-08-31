@@ -5,6 +5,7 @@ use App\Http\Controllers\{
     AuthController,
     ServiceController,
     CustomerController,
+    CustomerInteractionController,
 };
 
 Route::get('/', function () {
@@ -31,5 +32,35 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
     Route::post('/customer', [CustomerController::class, 'store'])->name('customer.store');
-});
 
+    #Route Read, Update, Delete Customer
+    Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
+    Route::post('/customer', [CustomerController::class, 'store'])->name('customer.store');
+    Route::delete('/customer/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+    Route::get('customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
+    Route::patch('customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
+
+    // Customer Interaction Routes
+    Route::prefix('customer-interactions')->group(function () {
+        Route::get('/', [CustomerInteractionController::class, 'index'])
+             ->name('customer_interaction.index');
+
+        Route::get('/create', [CustomerInteractionController::class, 'create'])
+             ->name('customer_interaction.create');
+
+        Route::post('/', [CustomerInteractionController::class, 'store'])
+             ->name('customer_interaction.store');
+
+        Route::get('/{id}', [CustomerInteractionController::class, 'show'])
+             ->name('customer_interaction.show');
+
+        Route::get('/{id}/edit', [CustomerInteractionController::class, 'edit'])
+             ->name('customer_interaction.edit');
+
+        Route::patch('/{id}', [CustomerInteractionController::class, 'update'])
+             ->name('customer_interaction.update');
+
+        Route::delete('/{id}', [CustomerInteractionController::class, 'destroy'])
+             ->name('customer_interaction.destroy');
+    });
+});

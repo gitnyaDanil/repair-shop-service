@@ -1,6 +1,6 @@
 @extends('App')
 
-@section('content-header', 'Daftar Customer')
+@section('content-header', 'Daftar Interaksi Customer')
 
 @section('content')
 <x-content>
@@ -12,21 +12,21 @@
                 </x-col>
             
                 <x-col>
-                    <x-table :thead="['Nama Depan', 'Nama Keluarga', 'Kontak', 'Alamat', 'Aksi']">
-                        @foreach ($customers as $customer)
+                    <x-table :thead="['Customer ID', 'Tanggal', 'Catatan', 'Aksi']">
+                        @foreach ($interactions as $interaction)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $customer->first_name }}</td>
-                                <td>{{ $customer->last_name}}</td>
-                                <td>{{ $customer->contact_info }}</td>
-                                <td>{{ $customer->address }}</td>
+                                <td>{{ $interaction->customer_id }}</td>
+                                
+                                <td>{{ $interaction->date }}</td>
+                                <td>{{ $interaction->notes }}</td>
                                 <td>
                                     <a
-                                    href="{{ route('customer.show', $customer->id) }}"
+                                    href="{{ route('customer_interaction.show', $interaction->id) }}"
                                     class="btn btn-warning"
                                     title="Ubah"><i class="fas fa-pencil-alt"></i></a>
 
-                                    <form style=" display:inline!important;" method="POST" action="{{ route('customer.destroy', $customer->id) }}">
+                                    <form style=" display:inline!important;" method="POST" action="{{ route('customer_interaction.destroy', $interaction->id) }}">
                                         @csrf
                                         @method('DELETE')
 
@@ -47,15 +47,15 @@
 </x-content>
 
 <x-modal :title="'Tambah Data'" :id="'add-modal'" :size="'xl'">
-    <form style="width: 100%" action="{{ route('customer.store') }}" method="POST">
+    <form style="width: 100%" action="{{ route('customer_interaction.store') }}" method="POST">
         @csrf
         @method('POST')
-
+        <!-- belum selesai -->
         <x-row>
-            <x-in-text col="4" :label="'First Name'" :id="'first_name'" :name="'first_name'" :required="true" />
-            <x-in-text col="4" :label="'Last Name'" :id="'last_name'" :name="'last_name'" :required="false" />
-            <x-in-text col="4" :label="'Contact Info'" :id="'contact_info'" :name="'contact_info'" :required="false" />
-            <x-in-text col="4" :label="'Address'" :id="'address'" :name="'address'" :required="false" />
+            <x-in-text col="2" :label="'Customer ID'" :id="'customer_id'" :name="'customer_id'" :required="true" />
+            <!-- <x-in-text col="4" :label="'Date'" :id="'date'" :name="'date'" :required="true" /> -->
+            <input type="date" name="date" id="date" class="form-control" required>
+            <x-in-text col="8" :label="'Notes'" :id="'notes'" :name="'notes'" :required="true" />
         </x-row>
         
         <x-col class="text-right">
