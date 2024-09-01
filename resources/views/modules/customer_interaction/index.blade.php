@@ -10,14 +10,13 @@
                 <x-col class="mb-3">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-modal">Tambah</button>
                 </x-col>
-            
+
                 <x-col>
-                    <x-table :thead="['Customer ID', 'Tanggal', 'Catatan', 'Aksi']">
+                    <x-table :thead="['Customer ', 'Tanggal', 'Catatan', 'Aksi']">
                         @foreach ($interactions as $interaction)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $interaction->customer_id }}</td>
-                                
+                                <td>{{ $interaction->first_name }} {{ $interaction->last_name }}</td>
                                 <td>{{ $interaction->date }}</td>
                                 <td>{{ $interaction->notes }}</td>
                                 <td>
@@ -52,12 +51,17 @@
         @method('POST')
         <!-- belum selesai -->
         <x-row>
-            <x-in-text col="2" :label="'Customer ID'" :id="'customer_id'" :name="'customer_id'" :required="true" />
-            <!-- <x-in-text col="4" :label="'Date'" :id="'date'" :name="'date'" :required="true" /> -->
-            <input type="date" name="date" id="date" class="form-control" required>
-            <x-in-text col="8" :label="'Notes'" :id="'notes'" :name="'notes'" :required="true" />
+            <x-in-select
+            :label="'Customer'"
+            :placeholder="'Pilih Customer'"
+            :col="6"
+            :name="'customer_id'"
+            :id="'customer_id'"
+            :required="true"></x-in-select>
+            <x-in-text col="6" :type="'date'" :label="'date'" :id="'date'" :name="'date'" :required="true" />
+            <x-in-text col="12" :label="'Notes'" :id="'notes'" :name="'notes'" :required="true" />
         </x-row>
-        
+
         <x-col class="text-right">
             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -65,3 +69,45 @@
     </form>
 </x-modal>
 @endsection
+
+@push('js')
+    <input type="hidden" id="url-customers" value="{{ route('select2.customers') }}">
+
+    <script>
+        $(function() {
+            $('#customer_id').select2({
+                theme: 'bootstrap4',
+                allowClear: true,
+                placeholder: {
+                    id: '',
+                    text: 'Pilih Customer'
+                },
+                ajax: {
+                    url: $('#url-customers').val(),
+                    dataType: 'json',
+                    delay: 500,
+                    data: function (params) {
+                        let query = {
+                            search: params.term
+                        }
+
+                        return query;
+                    },
+                    processResults: function (data) {
+                        const finalData = data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: [item.first_name, item.last_name].join(' ')
+                            }
+                        });
+
+                        return {
+                            results: finalData
+                        };
+                    },
+                    cache: false
+                }
+            });
+        });
+    </script>
+@endpush
