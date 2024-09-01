@@ -7,6 +7,7 @@ use App\Http\Controllers\{
     CustomerController,
     CustomerInteractionController,
     RepairOrderController,
+    Select2Controller
 };
 
 Route::get('/', function () {
@@ -71,20 +72,24 @@ Route::group(['middleware' => ['auth']], function() {
 
           Route::get('/create', [RepairOrderController::class, 'create'])
                ->name('repair_order.create');
-  
+
           Route::post('/', [RepairOrderController::class, 'store'])
                ->name('repair_order.store');
-  
+
           Route::get('/{id}', [RepairOrderController::class, 'show'])
                ->name('repair_order.show');
-  
+
           Route::get('/{id}/edit', [RepairOrderController::class, 'edit'])
                ->name('repair_order.edit');
-  
+
           Route::patch('/{id}', [RepairOrderController::class, 'update'])
                ->name('repair_order.update');
-  
+
           Route::delete('/{id}', [RepairOrderController::class, 'destroy'])
                ->name('repair_order.destroy');
+    });
+
+    Route::group(['prefix' => 'select2'], function() {
+        Route::get('customers', [Select2Controller::class, 'Customers'])->name('select2.customers');
     });
 });

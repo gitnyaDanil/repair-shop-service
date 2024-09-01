@@ -10,7 +10,7 @@ class CustomerInteractionController extends Controller
 {
     public function index()
     {
-        $query = "SELECT ci.id, ci.customer_id, ci.date, ci.notes, c.first_name, c.last_name 
+        $query = "SELECT ci.id, ci.customer_id, ci.date, ci.notes, c.first_name, c.last_name
                   FROM customer_interactions ci
                   JOIN customers c ON ci.customer_id = c.id";
         $interactions = DB::select($query);
