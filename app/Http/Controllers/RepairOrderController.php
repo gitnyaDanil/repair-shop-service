@@ -10,8 +10,8 @@ class RepairOrderController extends Controller
 {
     public function index()
     {
-        $query = "SELECT ro.id, ro.customer_id, ro.date_received, ro.estimated_completion_waktu, 
-        ro.status, ro.total_cost, c.first_name, c.last_name 
+        $query = "SELECT ro.id, ro.customer_id, ro.date_received, ro.estimated_completion_waktu,
+        ro.status, ro.total_cost, c.first_name, c.last_name
                   FROM repair_orders ro
                   JOIN customers c ON ro.customer_id = c.id";
         $repair_orders = DB::select($query);
@@ -33,24 +33,100 @@ class RepairOrderController extends Controller
             'date_received' => 'required|string',
             'estimated_completion_waktu' => 'required|string',
             'status' => 'required|string',
-            'total_cost' => 'required|integer|min:0',
+            'service_id.*' => 'required|integer|exists:services,id',
+            'quantity.*' => 'required|integer|min:1',
         ]);
 
-        $query = "INSERT INTO repair_orders (customer_id, date_received, estimated_completion_waktu, 
-        status, total_cost, created_at, updated_at) 
-        VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
+        $query = "
+            INSERT INTO repair_orders (
+                customer_id,
+                date_received,
+                estimated_completion_waktu,
+                status,
+                total_cost,
+                created_at,
+                updated_at
+            ) VALUES (
+                ?,
+                ?,
+                ?,
+                ?,
+                0,
+                NOW(), NOW())";
+
+        // transaction
+        DB::beginTransaction();
 
         $insert = DB::insert($query, [
             $request->customer_id,
             $request->date_received,
             $request->estimated_completion_waktu,
             $request->status,
-            $request->total_cost,
         ]);
 
         if (!$insert) {
+            DB::rollBack();
             return redirect()->back()->with('error', 'Failed to insert Repair Order');
         }
+
+        $repair_order_id = DB::getPdo()->lastInsertId();
+
+        $query = "
+            INSERT INTO repair_order_details (
+                repair_order_id,
+                customer_id,
+                service_id,
+                cost_per_service,
+                quantity,
+                created_at,
+                updated_at
+            ) VALUES (
+                ?,
+                ?,
+                ?,
+                (SELECT cost FROM services WHERE id = ?),
+                ?,
+                NOW(),
+                NOW()
+            )";
+
+        foreach ($request->service_id as $key => $service_id) {
+            $insert = DB::insert($query, [
+                $repair_order_id,
+                $request->customer_id,
+                $service_id,
+                $service_id,
+                $request->quantity[$key],
+            ]);
+
+            if (!$insert) {
+                DB::rollBack();
+                return redirect()->back()->with('error', 'Failed to insert Repair Order');
+            }
+        }
+
+        // count total cost
+
+        $query = "
+            SELECT SUM(cost_per_service * quantity) AS total_cost
+            FROM repair_order_details
+            WHERE repair_order_id = ?";
+
+        $total_cost = DB::selectOne($query, [$repair_order_id])->total_cost;
+
+        $query = "
+            UPDATE repair_orders
+            SET total_cost = ?
+            WHERE id = ?";
+
+        $update = DB::update($query, [$total_cost, $repair_order_id]);
+
+        if (!$update) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to insert Repair Order');
+        }
+
+        DB::commit();
 
         return redirect()->route('repair_order.index')->with('success', 'Repair order added successfully.');
     }
@@ -69,8 +145,8 @@ class RepairOrderController extends Controller
 
     public function show($id)
     {
-        $query = "SELECT ro.id, ro.customer_id, ro.date_received, ro.estimated_completion_waktu, 
-        ro.status, ro.total_cost, c.first_name, c.last_name 
+        $query = "SELECT ro.id, ro.customer_id, ro.date_received, ro.estimated_completion_waktu,
+        ro.status, ro.total_cost, c.first_name, c.last_name
                   FROM repair_orders ro
                   JOIN customers c ON ro.customer_id = c.id
                   WHERE ro.id = ?";
