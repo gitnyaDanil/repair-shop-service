@@ -74,44 +74,41 @@
     <input type="hidden" id="url-customers" value="{{ route('select2.customers') }}">
 
     <script>
-        $(function() 
+        $(function()
         {
             $('#customer_id').select2(
                 {
                 theme: 'bootstrap4',
                 allowClear: true,
-                placeholder: 
+                placeholder:
                 {
                     id: '',
                     text: 'Pilih Customer'
                 },
-                ajax: 
+                ajax:
                 {
                     url: $('#url-customers').val(),
                     dataType: 'json',
                     delay: 500,
-                    data: function (params) 
+                    data: function (params)
                     {
-                        let query = 
+                        let query =
                         {
                             search: params.term
                         }
 
                         return query;
                     },
-                    processResults: function (data) 
+                    processResults: function (data)
                     {
-                        const finalData = data.map(function(item) 
-                        {
-                            return 
-                            {
+                        const finalData = data.map(function(item) {
+                            return {
                                 id: item.id,
                                 text: [item.first_name, item.last_name].join(' ')
                             }
                         });
 
-                        return 
-                        {
+                        return {
                             results: finalData
                         };
                     },
