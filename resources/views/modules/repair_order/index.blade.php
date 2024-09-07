@@ -53,7 +53,7 @@
         @method('POST')
         <!-- belum selesai -->
         <x-row>
-            <x-in-text col="2" :label="'Customer ID'" :id="'customer_id'" :name="'customer_id'" :required="true" />
+            <x-in-select col="2" :label="'Customer ID'" :id="'customer_id'" :name="'customer_id'" :required="true"></x-in-select>
             <!-- <x-in-text col="4" :label="'Date'" :id="'date'" :name="'date'" :required="true" /> -->
             <input type="date" name="date_received" id="date_received" class="form-control" required>
             <input type="date" name="estimated_completion_waktu" id="estimated_completion_waktu" class="form-control" required>
@@ -68,12 +68,13 @@
     </form>
 </x-modal>
 @endsection
+
 @push('js')
     <input type="hidden" id="url-customers" value="{{ route('select2.customers') }}">
 
     <script>
         $(function() {
-            console.log('JavaScript loaded');
+            //console.log('JavaScript loaded');
             $('#customer_id').select2({
                 theme: 'bootstrap4',
                 allowClear: true,
@@ -86,7 +87,7 @@
                     dataType: 'json',
                     delay: 500,
                     data: function (params) {
-                        console.log('Sending AJAX request with params:', params);
+                        //console.log('Sending AJAX request with params:', params);
                         return {
                             search: params.term // Send the search term to the server
                         };

@@ -76,31 +76,25 @@
     <script>
         $(function()
         {
-            $('#customer_id').select2(
-                {
+            $('#customer_id').select2({
                 theme: 'bootstrap4',
                 allowClear: true,
-                placeholder:
-                {
+                placeholder: {
                     id: '',
                     text: 'Pilih Customer'
                 },
-                ajax:
-                {
+                ajax: {
                     url: $('#url-customers').val(),
                     dataType: 'json',
                     delay: 500,
-                    data: function (params)
-                    {
-                        let query =
-                        {
+                    data: function (params) {
+                        let query = {
                             search: params.term
                         }
 
                         return query;
                     },
-                    processResults: function (data)
-                    {
+                    processResults: function (data) {
                         const finalData = data.map(function(item) {
                             return {
                                 id: item.id,
