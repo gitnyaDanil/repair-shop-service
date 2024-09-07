@@ -43,4 +43,25 @@ class Select2Controller extends Controller
 
         return response()->json($data);
     }
+
+    public function Services(Request $request)
+    {
+        $search = $request->search;
+        $query = "";
+        $args = [];
+
+        $query = "
+            SELECT
+                id, name
+            FROM services";
+
+        if ($search) {
+            $query .= " WHERE name LIKE ?";
+            $args[] = '%' . $search . '%';
+        }
+
+        $data = DB::select($query, $args);
+
+        return response()->json($data);
+    }
 }

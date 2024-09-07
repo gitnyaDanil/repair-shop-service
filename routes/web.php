@@ -91,5 +91,6 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::group(['prefix' => 'select2'], function() {
         Route::get('customers', [Select2Controller::class, 'Customers'])->name('select2.customers');
+        Route::get('services', [Select2Controller::class, 'Services'])->name('select2.services');
     });
 });

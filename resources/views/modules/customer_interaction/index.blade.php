@@ -74,7 +74,7 @@
     <input type="hidden" id="url-customers" value="{{ route('select2.customers') }}">
 
     <script>
-        $(function() 
+        $(function()
         {
             $('#customer_id').select2({
                 theme: 'bootstrap4',

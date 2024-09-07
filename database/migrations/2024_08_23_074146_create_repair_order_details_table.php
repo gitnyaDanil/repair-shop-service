@@ -15,6 +15,7 @@ class CreateRepairOrderDetailsTable extends Migration
             $table->id();
 
             #foreign key column declaration
+            $table->unsignedBigInteger('repair_order_id');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('service_id');
 
@@ -23,6 +24,7 @@ class CreateRepairOrderDetailsTable extends Migration
             $table->timestamps();
 
             #foreign key constraint
+            $table->foreign('repair_order_id')->references('id')->on('repair_orders');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('service_id')->references('id')->on('services');
         });
