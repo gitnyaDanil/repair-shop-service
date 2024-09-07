@@ -12,11 +12,11 @@
                 </x-col>
             
                 <x-col>
-                    <x-table :thead="['Customer ID', 'Tanggal Penerimaan', 'Tanggal Perkiraan Selesai', 'Status', 'Total Biaya', 'Aksi']">
+                    <x-table :thead="['Customer ', 'Tanggal Penerimaan', 'Tanggal Perkiraan Selesai', 'Status', 'Total Biaya', 'Aksi']">
                         @foreach ($repair_orders as $repair_order)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $repair_order->customer_id }}</td>
+                                <td>{{ $repair_order->first_name }} {{ $repair_order->last_name }}</td>
                                 <td>{{ $repair_order->date_received }}</td>
                                 <td>{{ $repair_order->estimated_completion_waktu }}</td>
                                 <td>{{ $repair_order->status }}</td>
@@ -68,3 +68,43 @@
     </form>
 </x-modal>
 @endsection
+@push('js')
+    <input type="hidden" id="url-customers" value="{{ route('select2.customers') }}">
+
+    <script>
+        $(function() {
+            console.log('JavaScript loaded');
+            $('#customer_id').select2({
+                theme: 'bootstrap4',
+                allowClear: true,
+                placeholder: {
+                    id: '',
+                    text: 'Select Customer'
+                },
+                ajax: {
+                    url: $('#url-customers').val(),
+                    dataType: 'json',
+                    delay: 500,
+                    data: function (params) {
+                        console.log('Sending AJAX request with params:', params);
+                        return {
+                            search: params.term // Send the search term to the server
+                        };
+                    },
+                    processResults: function (data) {
+                        const finalData = data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: item.first_name + ' ' + item.last_name // Display first and last name
+                            };
+                        });
+                        return {
+                            results: finalData
+                        };
+                    },
+                    cache: false
+                }
+            });
+        });
+    </script>
+@endpush
