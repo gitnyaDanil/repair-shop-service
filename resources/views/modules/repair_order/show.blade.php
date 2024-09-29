@@ -25,7 +25,7 @@
                                 :label="'Tanggal Penerimaan'"
                                 :placeholder="'Tanggal Penerimaan'"
                                 :col="4"
-                                
+
                                 :id="'date_received'"
                                 :name="'date_received'"
                                 :value="$repair_order->date_received"
@@ -34,9 +34,9 @@
                                 :label="'Tanggal Perkiraan Selesai'"
                                 :placeholder="'Tanggal Perkiraan Selesai'"
                                 :col="4"
-                                :id="'estimated_completion_waktu'"
-                                :name="'estimated_completion_waktu'"
-                                :value="$repair_order->estimated_completion_waktu"
+                                :id="'estimated_completion_date'"
+                                :name="'estimated_completion_date'"
+                                :value="$repair_order->estimated_completion_date"
                                 :required="true"></x-in-text>
                             <x-in-text
                                 :label="'Status'"
@@ -54,7 +54,7 @@
                                 :name="'total_cost'"
                                 :value="$repair_order->total_cost"
                                 :required="true"></x-in-text>
-                            
+
                         </x-row>
 
                         <x-col class="text-right">

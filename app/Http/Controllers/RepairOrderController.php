@@ -10,7 +10,7 @@ class RepairOrderController extends Controller
 {
     public function index()
     {
-        $query = "SELECT ro.id, ro.customer_id, ro.date_received, ro.estimated_completion_waktu,
+        $query = "SELECT ro.id, ro.customer_id, ro.date_received, ro.estimated_completion_date,
         ro.status, ro.total_cost, c.first_name, c.last_name
                   FROM repair_orders ro
                   JOIN customers c ON ro.customer_id = c.id";
@@ -31,7 +31,7 @@ class RepairOrderController extends Controller
         $request->validate([
             'customer_id' => 'required|integer|exists:customers,id',
             'date_received' => 'required|string',
-            'estimated_completion_waktu' => 'required|string',
+            'estimated_completion_date' => 'required|string',
             'status' => 'required|string',
             'service_id.*' => 'required|integer|exists:services,id',
             'quantity.*' => 'required|integer|min:1',
@@ -41,7 +41,7 @@ class RepairOrderController extends Controller
             INSERT INTO repair_orders (
                 customer_id,
                 date_received,
-                estimated_completion_waktu,
+                estimated_completion_date,
                 status,
                 total_cost,
                 created_at,
@@ -60,7 +60,7 @@ class RepairOrderController extends Controller
         $insert = DB::insert($query, [
             $request->customer_id,
             $request->date_received,
-            $request->estimated_completion_waktu,
+            $request->estimated_completion_date,
             $request->status,
         ]);
 
@@ -145,7 +145,7 @@ class RepairOrderController extends Controller
 
     public function show($id)
     {
-        $query = "SELECT ro.id, ro.customer_id, ro.date_received, ro.estimated_completion_waktu,
+        $query = "SELECT ro.id, ro.customer_id, ro.date_received, ro.estimated_completion_date,
         ro.status, ro.total_cost, c.first_name, c.last_name
                   FROM repair_orders ro
                   JOIN customers c ON ro.customer_id = c.id
@@ -165,7 +165,7 @@ class RepairOrderController extends Controller
         $request->validate([
             'customer_id' => 'required|integer|exists:customers,id',
             'date_received' => 'required|string',
-            'estimated_completion_waktu' => 'required|string',
+            'estimated_completion_date' => 'required|string',
             'status' => 'required|string',
             'total_cost' => 'required|integer|min:0',
         ]);
@@ -174,7 +174,7 @@ class RepairOrderController extends Controller
             UPDATE repair_orders
             SET customer_id = ?,
                 date_received = ?,
-                estimated_completion_waktu = ?,
+                estimated_completion_date = ?,
                 status = ?,
                 total_cost = ?,
                 updated_at = NOW()
@@ -183,7 +183,7 @@ class RepairOrderController extends Controller
         $update = DB::update($query, [
             $request->customer_id,
             $request->date_received,
-            $request->estimated_completion_waktu,
+            $request->estimated_completion_date,
             $request->status,
             $request->total_cost,
             $id,

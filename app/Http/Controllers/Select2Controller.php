@@ -64,4 +64,53 @@ class Select2Controller extends Controller
 
         return response()->json($data);
     }
+
+    public function RepairOrders(Request $request)
+    {
+        $search = $request->search;
+        $query = "";
+        $args = [];
+
+        $query = "
+            SELECT
+                ro.id, c.first_name, c.last_name, ro.customer_id
+            FROM repair_orders ro
+            JOIN customers c ON ro.customer_id = c.id;";
+
+        if ($search) {
+            $query .= " WHERE c.first_name LIKE ? OR c.last_name LIKE ? OR ro.id LIKE ?";
+            $args[] = '%' . $search . '%';
+            $args[] = '%' . $search . '%';
+            $args[] = '%' . $search . '%';
+
+        }
+        $data = DB::select($query, $args);
+        return response()->json($data);
+    }
+
+    public function Invoices(Request $request)
+    {
+        $search = $request->search;
+        $query = "";
+        $args = [];
+
+        $query = "
+            SELECT
+                i.id, c.first_name, c.last_name, i.repair_order_id
+            FROM invoices i
+            JOIN repair_orders ro ON i.repair_order_id = ro.id
+            JOIN customers c ON ro.customer_id = c.id
+        ";
+
+        if ($search) {
+            $query .= " WHERE c.first_name LIKE ? OR c.last_name LIKE ? OR i.id LIKE ?";
+            $args[] = '%' . $search . '%';
+            $args[] = '%' . $search . '%';
+            $args[] = '%' . $search . '%';
+        }
+
+        $data = DB::select($query, $args);
+        return response()->json($data);
+    }
+
 }

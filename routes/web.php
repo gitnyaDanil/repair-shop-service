@@ -7,7 +7,9 @@ use App\Http\Controllers\{
     CustomerController,
     CustomerInteractionController,
     RepairOrderController,
-    Select2Controller
+    Select2Controller,
+    InvoiceController,
+    PaymentController
 };
 
 Route::get('/', function () {
@@ -92,5 +94,54 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['prefix' => 'select2'], function() {
         Route::get('customers', [Select2Controller::class, 'Customers'])->name('select2.customers');
         Route::get('services', [Select2Controller::class, 'Services'])->name('select2.services');
+        Route::get('repair-orders', [Select2Controller::class, 'RepairOrders'])->name('select2.repair-orders');
+        Route::get('invoices', [Select2Controller::class, 'Invoices'])->name('select2.invoices');
     });
+
+    Route::prefix('invoices')->group(function () {
+     Route::get('/', [InvoiceController::class, 'index'])
+          ->name('invoice.index');
+
+     Route::get('/create', [InvoiceController::class, 'create'])
+          ->name('invoice.create');
+
+     Route::post('/', [InvoiceController::class, 'store'])
+          ->name('invoice.store');
+
+     Route::get('/{id}', [InvoiceController::class, 'show'])
+          ->name('invoice.show');
+
+     Route::get('/{id}/edit', [InvoiceController::class, 'edit'])
+          ->name('invoice.edit');
+
+     Route::patch('/{id}', [InvoiceController::class, 'update'])
+          ->name('invoice.update');
+
+     Route::delete('/{id}', [InvoiceController::class, 'destroy'])
+          ->name('invoice.destroy');
+     });
+
+     Route::prefix('payments')->group(function () {
+          Route::get('/', [PaymentController::class, 'index'])
+               ->name('payment.index');
+
+          Route::get('/create', [PaymentController::class, 'create'])
+               ->name('payment.create');
+
+          Route::post('/', [PaymentController::class, 'store'])
+               ->name('payment.store');
+
+          Route::get('/{id}', [PaymentController::class, 'show'])
+               ->name('payment.show');
+
+          Route::get('/{id}/edit', [PaymentController::class, 'edit'])
+               ->name('payment.edit');
+
+          Route::patch('/{id}', [PaymentController::class, 'update'])
+               ->name('payment.update');
+
+          Route::delete('/{id}', [PaymentController::class, 'destroy'])
+               ->name('payment.destroy');
+      });
+
 });

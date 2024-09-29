@@ -42,7 +42,11 @@
 
             <x-nav-item :icon="'fas fa-users'" :text="'Customer Interaction'" :href="route('customer_interaction.index')"/>
 
-            <x-nav-item :icon="'fas fa-users'" :text="'Repair Order'" :href="route('repair_order.index')"/>
+            <x-nav-item :icon="'fas fa-file-invoice'" :text="'Repair Order'" :href="route('repair_order.index')"/>
+
+            <x-nav-item :icon="'fas fa-file-invoice-dollar'" :text="'Invoice'" :href="route('invoice.index')"/>
+
+            <x-nav-item :icon="'fas fa-credit-card'" :text="'Payment'" :href="route('payment.index')"/>
 
             {{-- <i class="fa-solid fa-screwdriver-wrench"></i> --}}
 

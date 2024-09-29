@@ -14,7 +14,7 @@ class CreateCustomerInteractionsTable extends Migration
         Schema::create('customer_interactions', function (Blueprint $table) {
             $table->id('id');
             $table->unsignedBigInteger('customer_id'); #Definisi kolom foreign key
-            
+
             $table->date('date');
             $table->text('notes');
             $table->timestamps();

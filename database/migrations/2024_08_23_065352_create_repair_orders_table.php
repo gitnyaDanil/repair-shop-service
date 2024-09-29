@@ -15,7 +15,7 @@ class CreateRepairOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_id');
             $table->date('date_received');
-            $table->string('estimated_completion_waktu');
+            $table->date('estimated_completion_date');
             $table->string('status');
             $table->integer('total_cost');
             $table->timestamps();

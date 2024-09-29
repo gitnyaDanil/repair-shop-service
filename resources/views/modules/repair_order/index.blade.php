@@ -5,7 +5,7 @@
 
 @php
 $optionsStatus = [
-    ['value' => 'sedang_diperbaiki', 'text' => 'Sedang Diperbaiki'],
+    ['value' => 'diproses', 'text' => 'Sedang Diperbaiki'],
     ['value' => 'ditunda', 'text' => 'Perbaikan Ditunda'],
     ['value' => 'selesai', 'text' => 'Perbaikan Selesai'],
     ['value' => 'batal', 'text' => 'Perbaikan Dibatalkan'],
@@ -28,7 +28,7 @@ $optionsStatus = [
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $repair_order->first_name }} {{ $repair_order->last_name }}</td>
                                 <td>{{ $repair_order->date_received }}</td>
-                                <td>{{ $repair_order->estimated_completion_waktu }}</td>
+                                <td>{{ $repair_order->estimated_completion_date }}</td>
                                 <td>
                                     @php
                                         $optionsStatusColl = collect($optionsStatus);
@@ -75,7 +75,7 @@ $optionsStatus = [
             <x-in-select :label="'Customer'" :id="'customer_id'" :name="'customer_id'" :required="true"></x-in-select>
             <!-- <x-in-text col="4" :label="'Date'" :id="'date'" :name="'date'" :required="true" /> -->
             <x-in-text col="4" :type="'date'" :label="'Tanggal Diterima'" :id="'date_received'" :name="'date_received'" :required="true" />
-            <x-in-text col="4" :type="'date'" :label="'Tanggal Perkiraan Selesai'" :id="'estimated_completion_waktu'" :name="'estimated_completion_waktu'" :required="true" />
+            <x-in-text col="4" :type="'date'" :label="'Tanggal Perkiraan Selesai'" :id="'estimated_completion_date'" :name="'estimated_completion_date'" :required="true" />
             <x-in-select col="4" :label="'Status'" :id="'status'" :name="'status'" :required="true" :options="$optionsStatus" />
             {{-- plus button to add service and quantity --}}
 

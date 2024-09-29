@@ -15,7 +15,7 @@ class CreateInvoicesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('repair_order_id');
             $table->date('date_issued');
-            $table->integer('total_amount');
+            $table->integer('total_amount')->nullable();
             $table->string('payment_status');
             $table->timestamps();
 

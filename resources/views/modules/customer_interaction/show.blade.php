@@ -25,7 +25,6 @@
                                 :label="'Tanggal'"
                                 :placeholder="'Tanggal'"
                                 :col="4"
-                                
                                 :id="'date'"
                                 :name="'date'"
                                 :value="$interaction->date"
@@ -38,7 +37,6 @@
                                 :name="'notes'"
                                 :value="$interaction->notes"
                                 :required="true"></x-in-text>
-                            
                         </x-row>
 
                         <x-col class="text-right">
