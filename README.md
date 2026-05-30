@@ -1,66 +1,73 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Workshop Order Management System (OMS)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> A secure, web-based Order Management System designed to automate workflow calculations, streamline repair order lifecycle tracking, and digitalize operations for manufacturing and metal workshop MSMEs. 
 
-## About Laravel
+[![Framework: Laravel 11.x](https://img.shields.io/badge/Framework-Laravel%2011.x-orange.svg)](https://laravel.com/)
+[![Language: PHP](https://img.shields.io/badge/Language-PHP%208.x-purple.svg)](https://www.php.net/)
+[![Frontend: Bootstrap](https://img.shields.io/badge/Frontend-Bootstrap-blueviolet.svg)](https://getbootstrap.com/)
+[![Database: MySQL](https://img.shields.io/badge/Database-MySQL-blue.svg)](https://www.mysql.com/)
+[![Methodology: Scrum/Agile](https://img.shields.io/badge/Methodology-Scrum%20%2F%20Agile-success.svg)](https://scrumguides.org/)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📌 Overview & Real-World Impact
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Small and Medium Enterprises (MSMEs) contribute significantly to Indonesia's GDP, yet many traditional workshops suffer from severe operational bottlenecks due to manual bookkeeping and fragmented tracking. 
 
-## Learning Laravel
+This enterprise-grade web application replaces paper-reliant workflows with a centralized digital system. It directly mitigates critical operational challenges by eliminating manual mathematical inaccuracies, solving data loss vulnerabilities (due to physical environmental damage), and optimizing file accessibility via custom query filtering.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Key Business Outcomes
+* **Workflow Automation:** Transitions manual calculations into programmatic operations, eliminating human calculation error.
+* **Data Durability:** Replaces brittle physical folders with a structured database, protecting business-critical documents against loss or environmental damage (e.g., floods/pests).
+* **Operational Transparency:** Empowers workshop managers to track a repair order from initial physical intake down to final invoicing and payment confirmation.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🏗️ System Architecture & Engineering
 
-## Laravel Sponsors
+The platform is engineered using modern object-oriented principles, adopting an application-independent data layout and high-cohesion design patterns.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Technical Stack
+* **Backend Ecosystem:** PHP 8.x utilizing the **Laravel 11.x** Framework (Model-View-Controller architecture for scalable server-side logic).
+* **Frontend UI:** **Bootstrap Layout Library** layered with semantic HTML5, CSS3, and JavaScript to deliver an intuitive dashboard interface.
+* **Database Engine:** **MySQL Relational Database** utilizing Eloquent ORM for secure database operations.
+* **Modeling & Architecture:** Unified Modeling Language (UML) detailing custom Activity, Sequence, Class, Component, and Deployment diagrams to secure system infrastructure.
 
-### Premium Partners
+### Functional Modules
+1.  **Authentication Control (`AuthController`):** Secure state management using password-hashing (`bcrypt`) alongside session termination protocols.
+2.  **Customer Directory Management:** Robust CRUD data layers handling dynamic customer metadata.
+3.  **Customer Interaction Registry:** Tracks ongoing communications and updates with stakeholders.
+4.  **Service Catalog Configurator:** Manages custom shop repair variants, standardized costs, and technical specifications.
+5.  **Repair Order Lifecycle Tracker:** The central orchestration engine mapping physical intake items into live digital statuses.
+6.  **Billing & Invoice Generator:** Dynamically compiles associated service configurations and prints/downloads data-aligned business invoices.
+7.  **Payment Tracker:** Handles payment validation histories paired explicitly to active invoice records.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+## 📈 Agile / Scrum Implementation Journey
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+The development cycle strictly adopted a two-sprint iterative **Scrum Framework** to preserve architectural flexibility and fast velocity:
 
-## Code of Conduct
+* **Sprint 1 (Core Foundations):** Built out core operational data structures—Focusing heavily on user login security, primary client/service data sets, processing logic for repair items, and basic transactional models (Invoices & Payments).
+* **Sprint 2 (Advanced Discovery Layers):** Programmed specialized index parameters allowing rapid querying capabilities across clients, orders, status filters, and historical invoices to ensure frictionless navigation.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🧪 Quality Assurance & System Verification
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+To validate that the software met both strict engineering standards and end-user performance demands, two distinct QA strategies were applied:
 
-## License
+### 1. Technical Functionality (Black Box Testing)
+Rigorous application testing treating the codebase parameters externally. All critical endpoints—including logic flows for form validation, edge cases, secure parameter authentication, boundary inputs, and data persistence—were tested to ensure predictable, error-free outputs.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 2. Practical Business Usability (User Acceptance Testing)
+Conducted directly with real-world workshop operators to evaluate practical field performance. Utilizing a quantitative **Likert Scale (1-5)** matrix, the production-ready system achieved exemplary acceptance thresholds:
+
+| Module System evaluated | Average Likert Score Value | Functional Interpretation |
+| :--- | :---: | :--- |
+| **Authentication Interface** | `5.0 / 5.0` | 🌟 Strongly Agree (Highly Intuitive & Secure) |
+| **Repair Order Core Pipeline**| `4.0 / 5.0` | ✅ Agree (High Operational Standard) |
+| **Invoice Processing Layer** | `4.0 / 5.0` | ✅ Agree (High Operational Standard) |
+| **Payment Tracking Hub** | `4.0 / 5.0` | ✅ Agree (High Operational Standard) |
+
+
